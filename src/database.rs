@@ -46,6 +46,9 @@ pub async fn query_notes(db: &Client) -> Result<Vec<Notes>, Box<dyn Error>> {
     if let Some(limit) = config.option.limit {
         query.push_str(&format!(" LIMIT {}", limit));
     }
+    if let Some(offset) = config.option.offset {
+        query.push_str(&format!(" OFFSET {}", offset));
+    }
 
     let rows = db.query(&query, &[]).await?;
 
